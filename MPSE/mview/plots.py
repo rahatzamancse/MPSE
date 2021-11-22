@@ -135,6 +135,7 @@ def plot3D(X,save=False,perspectives=None,edges=None,colors=None,
             }
         with open("plots/"+save+".pkl","wb") as handle:
             pickle.dump(args, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    return fig
 
 def plot3D_animate(X,save=False,perspectives=None,edges=None,colors=None,
            title=None,axis=False,ax=None):

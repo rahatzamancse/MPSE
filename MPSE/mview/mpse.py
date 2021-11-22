@@ -579,8 +579,9 @@ class MPSE(object):
             assert colors in range(self.n_samples)
             colors = squareform(self.distances[0])[colors]
             
-        plots.plot3D(self.embedding,perspectives=perspectives,edges=edges,
+        fig = plots.plot3D(self.embedding,perspectives=perspectives,edges=edges,
                      colors=colors,title=title,ax=ax,**kwargs)
+        return fig
 
     def plot_images(self,title=None,edges=None,
                 colors=True,plot=True,
@@ -618,7 +619,7 @@ class MPSE(object):
         plt.suptitle(title)
         if plot is True:
             plt.draw()
-            plt.pause(1.0)
+        return fig
     
     def plot_computations(self,title='computations',plot=True,ax=None):
         if self.fixed_embedding is True or self.fixed_projections is True:
@@ -651,7 +652,7 @@ class MPSE(object):
             ax[1].set_title('embedding parameters')
             if plot is True:
                 plt.draw()
-                plt.pause(1.0)
+
         else:
             if ax is None:
                 fig, ax = plt.subplots(1,3,figsize=(3*3,3))
@@ -714,7 +715,7 @@ class MPSE(object):
                 
         if plot is True:
             plt.draw()
-            plt.pause(0.2)
+        return fig
 
     def save(self):
         "save results to csv files"
