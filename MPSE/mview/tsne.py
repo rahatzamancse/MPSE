@@ -284,7 +284,7 @@ class TSNE(object):
             assert all(sigma>0)
             self.sigma = sigma
         else:
-            assert sigma is 'optimal'
+            assert sigma == 'optimal'
             assert isinstance(perplexity,numbers.Number)
             assert perplexity > 0
             self.perplexity = perplexity

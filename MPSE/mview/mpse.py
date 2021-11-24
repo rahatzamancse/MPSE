@@ -193,13 +193,13 @@ class MPSE(object):
             if self.verbose > 0:
                 print('  setup visualization instance for perspective',
                       self.perspective_labels[i],':')
-            if visualization_method[i] is 'mds':
+            if visualization_method[i] == 'mds':
                 vis = mds.MDS(self.distances[i],
                               weights = self.weights[i],
                               embedding_dimension=self.image_dimension,
                               verbose=self.verbose, indent=self.indent+'    ',
                               **visualization_args[i])
-            elif visualization_method[i] is 'tsne':
+            elif visualization_method[i] == 'tsne':
                 vis = tsne.TSNE(self.distances[i],
                                 embedding_dimension=self.image_dimension,
                                 verbose=self.verbose, indent=self.indent+'    ',
@@ -266,7 +266,7 @@ class MPSE(object):
                         Y[k],batch_size=batch_size,indices=indices)
                     individual_costs[k] = cost_k
                     if return_embedding:
-                        dX += dY_k @ projections[k]
+                        dX += dY_k @ projections[k][:2, :3]
                     if return_projections:
                         dQ.append(dY_k.T @ embedding)
                 if return_embedding:
@@ -327,6 +327,8 @@ class MPSE(object):
             if isinstance(fixed_projections,str):
                 fixed_projections = self.proj.generate(number= \
                             self.n_perspectives,method=fixed_projections)
+            assert(all([isinstance(fp,np.ndarray) for fp in fixed_projections]))
+            fixed_projections = [f[:2, :3] for f in fixed_projections]
             self.projections = fixed_projections
             self.initial_projections = fixed_projections
             self.fixed_projections = True
@@ -349,6 +351,8 @@ class MPSE(object):
                 self.initial_projections = initial_projections
             self.projections = self.initial_projections
             self.fixed_projections = False        
+        print(indent+' Projection is:')
+        print(self.projections)
 
         self.initial_cost = None
         self.initial_individual_cost = None

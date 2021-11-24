@@ -85,7 +85,7 @@ class PROJ(object):
         if self.constraint is None:
             self.c = lambda x : x
             self.random = lambda : np.random.randn(self.d2,self.d1)
-        elif self.constraint is 'orthogonal':
+        elif self.constraint == 'orthogonal':
             def c(P):
                 """\
                 Returns nearest orthogonal matrix to P, that is, Q minimizing 
@@ -96,7 +96,7 @@ class PROJ(object):
             self.c = c
             self.random = lambda : scipy.stats.ortho_group.rvs(self.d1) \
                           [0:self.d2,:]
-        elif self.constraint is 'similar':
+        elif self.constraint == 'similar':
             def c(P):
                 """\
                 Returns nearest scaled orthogonal matrix to P, that is, Q 
@@ -162,6 +162,8 @@ class PROJ(object):
         Y : array or list
         Projected coordinates p_q(X) or [p_q1(X),...,p_qK(X)].
         """
+
+
         if isinstance(q,np.ndarray) and q.shape==self.shape:
             Y = self.P(q,X)
         else:
@@ -207,7 +209,7 @@ class PROJ(object):
         projection/perspective families are ['identity','random']. Other choices
         are dependent on the family and constraints.
         """
-        if method is None:
+        if not method:
             method = 'random'
         if method == 'random':
             Q = []

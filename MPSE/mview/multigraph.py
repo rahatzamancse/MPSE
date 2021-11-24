@@ -980,10 +980,10 @@ def dmatrices(X,input_type='coordinates',**kwargs):
     assert input_type in ['coordinates','similarities']
     K = len(X); N = len(X[0])
     D = np.empty((K,N,N))
-    if input_type is 'coordinates':
+    if input_type == 'coordinates':
         for k in range(K):
             D[k] = coord2dist(X[k],**kwargs)
-    elif input_type is 'similarities':
+    elif input_type == 'similarities':
         for k in range(K):
             D[k] = sim2dist(X[k],**kwargs)
     return D
