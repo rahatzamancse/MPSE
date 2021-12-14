@@ -9,3 +9,4 @@ old/*
 .vscode
 .DS_Store
 MPSE/mview/temp/*
+**/.ipynb_checkpoints/
