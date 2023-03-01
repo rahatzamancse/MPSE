@@ -351,8 +351,9 @@ class MPSE(object):
                 self.initial_projections = initial_projections
             self.projections = self.initial_projections
             self.fixed_projections = False        
-        print(indent+' Projection is:')
-        print(self.projections)
+        if verbose > 0:
+            print(indent+' Projection is:')
+            print(self.projections)
 
         self.initial_cost = None
         self.initial_individual_cost = None
